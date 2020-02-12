@@ -59,9 +59,9 @@ func SelfIP() net.IP {
         panic(err)
     }
 
-    log.Info("###### addrs:" + addrs)
 
     for _, a := range addrs {
+        log.Info("###### addrs:" + a)
         if ipnet, ok := a.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
             if ipnet.IP.To4() != nil {
                 return ipnet.IP
