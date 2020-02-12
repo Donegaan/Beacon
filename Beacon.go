@@ -1,5 +1,5 @@
 package main
- 
+
 import (
     "os"
     "fmt"
@@ -43,7 +43,7 @@ type Packet struct {
     Source       net.IP     `json:"source"`
 }
 
- 
+
 // A Simple function to verify error
 func CheckError(err error) {
     if err  != nil {
@@ -58,6 +58,8 @@ func SelfIP() net.IP {
     if err != nil {
         panic(err)
     }
+
+    log.Info("###### addrs:" + addrs)
 
     for _, a := range addrs {
         if ipnet, ok := a.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
@@ -124,7 +126,7 @@ func beacon() {
         }
     }
 }
- 
+
 func main() {
     fmt.Printf("Hello World!")
 
@@ -160,7 +162,7 @@ func main() {
     // Lets prepare a address at any address at port 10001
     ServerAddr,err := net.ResolveUDPAddr(Protocol, Port)
     CheckError(err)
- 
+
     // Now listen at selected port
     ServerConn, err := net.ListenUDP(Protocol, ServerAddr)
     CheckError(err)
@@ -168,13 +170,13 @@ func main() {
 
     go attendBufferChannel()
     go beacon()
- 
+
     buf := make([]byte, 1024)
- 
+
     for {
         n,_,err := ServerConn.ReadFromUDP(buf)
         buffer <- string(buf[0:n])
-        
+
         if err != nil {
             log.Error("Error: ",err)
         }
