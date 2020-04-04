@@ -86,7 +86,7 @@ func attendBufferChannel() {
 
             log.Info(myIP.String() + " -> Message: " + packet.Message + " from " + packet.Source.String())
 
-            out, err := exec.Command("python3", "request_objects.py", packet.Source.String()).Output()
+            err := exec.Command("python3", "request_objects.py", packet.Source.String()).Output()
             if err != nil {
                 log.Info("Request object command finished with error: %v", err)
             } else {
@@ -130,7 +130,7 @@ func beacon() {
             _,err = Conn.Write(buf)
             CheckError(err)
 
-            out, err := exec.Command("python3", "publish_objects.py", myIP.String(), payload.Message).Output()
+            err := exec.Command("python3", "publish_objects.py", myIP.String(), payload.Message).Output()
             if err != nil {
                 log.Info("Publish error: %s", err)
             } else {
