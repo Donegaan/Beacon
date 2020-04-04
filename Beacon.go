@@ -89,9 +89,9 @@ func attendBufferChannel() {
             cmd := exec.Command("pwd")
             err := cmd.Run()
             log.Info("Request object command finished with error: %v", err)
-            cmd := exec.Command("ls")
-            err := cmd.Run()
-            log.Info("Request ls command finished with error: %v", err)
+            cmd1 := exec.Command("ls")
+            err1 := cmd1.Run()
+            log.Info("Request ls command finished with error: %v", err1)
         } else {
             fmt.Println("closing channel")
             done <- true
