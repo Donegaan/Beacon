@@ -86,19 +86,13 @@ func attendBufferChannel() {
 
             log.Info(myIP.String() + " -> Message: " + packet.Message + " from " + packet.Source.String())
 
-            out, err := exec.Command("ls").Output()
+            out, err := exec.Command("python3", "request_objects.py", packet.Source.String().Output())
             if err != nil {
                 log.Info("%s", err)
             }
             log.Info("Command Successfully Executed")
             output := string(out[:])
             log.Info(output)
-
-            // cmd := exec.Command("python3 /request_objects.py", packet.Source.String())
-            // err := cmd.Run()
-            // if err != nil {
-            //     log.Info("Request object command finished with error: %v", err)
-            // }
         } else {
             fmt.Println("closing channel")
             done <- true
@@ -137,19 +131,13 @@ func beacon() {
             _,err = Conn.Write(buf)
             CheckError(err)
 
-            out, err := exec.Command("ls").Output()
+            out, err := exec.Command("python3", "publish_objects.py", myIP.String(), payload.Message).Output()
             if err != nil {
                 log.Info("%s", err)
             }
             log.Info("Command Successfully Executed")
             output := string(out[:])
             log.Info(output)
-
-            // cmd := exec.Command("python3 /publish_objects.py", myIP.String(), payload.Message)
-            // err := cmd.Run()
-            // if err != nil {
-            //     log.Info("Publish object command finished with error: %v", err)
-            // }
 
             time.Sleep(time.Duration(r1.Intn(20)) * time.Second)
         }
@@ -158,6 +146,14 @@ func beacon() {
 
 func main() {
     fmt.Printf("Hello World!")
+
+    out, err := exec.Command("python3", "create_stream.py").Output()
+    if err != nil {
+        log.Info("%s", err)
+    }
+    log.Info("Command Successfully Executed")
+    output := string(out[:])
+    log.Info(output)
 
     // +++++++++++++++++++++++++++++
     // ++++++++ Logger conf
