@@ -86,13 +86,13 @@ func attendBufferChannel() {
 
             log.Info(myIP.String() + " -> Message: " + packet.Message + " from " + packet.Source.String())
 
-            out, err := exec.Command("python3", "request_objects.py", packet.Source.String().Output())
+            cmd := exec.Command("python3", "request_objects.py", packet.Source.String())
+            err := exec.Run()
             if err != nil {
-                log.Info("%s", err)
+                log.Info("Request object command finished with error: %v", err)
+            } else {
+                log.Info("Command Successfully Executed")
             }
-            log.Info("Command Successfully Executed")
-            output := string(out[:])
-            log.Info(output)
         } else {
             fmt.Println("closing channel")
             done <- true
