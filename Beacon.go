@@ -85,9 +85,20 @@ func attendBufferChannel() {
             json.Unmarshal([]byte(j), &packet)
 
             log.Info(myIP.String() + " -> Message: " + packet.Message + " from " + packet.Source.String())
-            cmd := exec.Command("cd / && python3 request_objects.py", packet.Source.String())
-            err := cmd.Run()
-            log.Info("Request object command finished with error: %v", err)
+
+            out, err = exec.Command("pwd").Output()
+            if err != nil {
+                log.Info("%s", err)
+            }
+            log.Info("Command Successfully Executed")
+            output = string(out[:])
+            log.Info(output)
+
+            // cmd := exec.Command("python3 /request_objects.py", packet.Source.String())
+            // err := cmd.Run()
+            // if err != nil {
+            //     log.Info("Request object command finished with error: %v", err)
+            // }
         } else {
             fmt.Println("closing channel")
             done <- true
@@ -125,10 +136,21 @@ func beacon() {
         for {
             _,err = Conn.Write(buf)
             CheckError(err)
-            streamObject := myIP.String() + " " + payload.Message
-            cmd := exec.Command("cd / && python3 publish_objects.py", streamObject)
-            err := cmd.Run()
-            log.Info("Publish object command finished with error: %v", err)
+
+            out, err = exec.Command("pwd").Output()
+            if err != nil {
+                log.Info("%s", err)
+            }
+            log.Info("Command Successfully Executed")
+            output = string(out[:])
+            log.Info(output)
+
+            // cmd := exec.Command("python3 /publish_objects.py", myIP.String(), payload.Message)
+            // err := cmd.Run()
+            // if err != nil {
+            //     log.Info("Publish object command finished with error: %v", err)
+            // }
+
             time.Sleep(time.Duration(r1.Intn(20)) * time.Second)
         }
     }
