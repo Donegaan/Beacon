@@ -86,7 +86,7 @@ func attendBufferChannel() {
 
             log.Info(myIP.String() + " -> Message: " + packet.Message + " from " + packet.Source.String())
 
-            out, err := exec.Command("pwd").Output()
+            out, err := exec.Command("ls").Output()
             if err != nil {
                 log.Info("%s", err)
             }
@@ -137,7 +137,7 @@ func beacon() {
             _,err = Conn.Write(buf)
             CheckError(err)
 
-            out, err := exec.Command("pwd").Output()
+            out, err := exec.Command("ls").Output()
             if err != nil {
                 log.Info("%s", err)
             }
