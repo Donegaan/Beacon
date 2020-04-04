@@ -85,7 +85,7 @@ func attendBufferChannel() {
             json.Unmarshal([]byte(j), &packet)
 
             log.Info(myIP.String() + " -> Message: " + packet.Message + " from " + packet.Source.String())
-            cmd := exec.Command("python3 /request_objects.py", packet.Source.String())
+            cmd := exec.Command("cd / && python3 request_objects.py", packet.Source.String())
             err := cmd.Run()
             log.Info("Request object command finished with error: %v", err)
         } else {
@@ -126,7 +126,7 @@ func beacon() {
             _,err = Conn.Write(buf)
             CheckError(err)
             streamObject := myIP.String() + " " + payload.Message
-            cmd := exec.Command("python3 /publish_objects.py", streamObject)
+            cmd := exec.Command("cd / && python3 publish_objects.py", streamObject)
             err := cmd.Run()
             log.Info("Publish object command finished with error: %v", err)
             time.Sleep(time.Duration(r1.Intn(20)) * time.Second)
