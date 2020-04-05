@@ -132,6 +132,15 @@ func beacon() {
             _,err = Conn.Write(buf)
             CheckError(err)
 
+            out, err := exec.Command("python3", "create_stream.py", myIP.String(), payload.Message).Output()
+            if err != nil {
+                log.Info("Create stream error: %s", err)
+            } else {
+                log.Info("Command Successfully Executed")
+                output := string(out[:])
+                log.Info(output)
+            }
+
             out, err := exec.Command("python3", "publish_objects.py", myIP.String(), payload.Message).Output()
             if err != nil {
                 log.Info("Publish error: %s", err)
