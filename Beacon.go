@@ -90,7 +90,7 @@ func attendBufferChannel() {
             if err != nil {
                 log.Info("Request object command finished with error: %v", err)
             } else {
-                log.Info("Command Successfully Executed")
+                log.Info("Object requested from stream sucessfully")
                 output := string(out[:])
                 log.Info(output)
             }
@@ -136,7 +136,7 @@ func beacon() {
             if err != nil {
                 log.Info("Create stream error: %s", err1)
             } else {
-                log.Info("Command Successfully Executed")
+                log.Info("Stream created sucessfully")
                 output := string(out1[:])
                 log.Info(output)
             }
@@ -145,7 +145,7 @@ func beacon() {
             if err != nil {
                 log.Info("Publish error: %s", err)
             } else {
-                log.Info("Command Successfully Executed")
+                log.Info("Object published to stream sucessfully")
                 output := string(out[:])
                 log.Info(output)
             }
