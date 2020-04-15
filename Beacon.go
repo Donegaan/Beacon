@@ -133,7 +133,7 @@ func beacon() {
             CheckError(err)
 
             out1, err1 := exec.Command("python3", "create_stream.py", myIP.String(), payload.Message).Output()
-            if err != nil {
+            if err1 != nil {
                 fmt.Println("Create stream error: %s", err1)
             } else {
                 log.Info("Stream created sucessfully")
@@ -141,12 +141,12 @@ func beacon() {
                 fmt.Println(output)
             }
 
-            out, err := exec.Command("python3", "publish_objects.py", myIP.String(), payload.Message).Output()
-            if err != nil {
-                fmt.Println("Publish error: %s", err)
+            out2, err2 := exec.Command("python3", "publish_objects.py", myIP.String(), payload.Message).Output()
+            if err2 != nil {
+                fmt.Println("Publish error: %s", err2)
             } else {
                 log.Info("Object published to stream sucessfully")
-                output := string(out[:])
+                output := string(out2[:])
                 fmt.Println(output)
             }
 
