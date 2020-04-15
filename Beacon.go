@@ -88,11 +88,11 @@ func attendBufferChannel() {
 
             out, err := exec.Command("python3", "request_objects.py", packet.Source.String()).Output()
             if err != nil {
-                log.Info("Request object command finished with error: %v", err)
+                fmt.Println("Request object command finished with error: %v", err)
             } else {
                 log.Info("Object requested from stream sucessfully")
                 output := string(out[:])
-                log.Info(output)
+                fmt.Printf(output)
             }
         } else {
             fmt.Println("closing channel")
@@ -134,20 +134,20 @@ func beacon() {
 
             out1, err1 := exec.Command("python3", "create_stream.py", myIP.String(), payload.Message).Output()
             if err != nil {
-                log.Info("Create stream error: %s", err1)
+                fmt.Println("Create stream error: %s", err1)
             } else {
                 log.Info("Stream created sucessfully")
                 output := string(out1[:])
-                log.Info(output)
+                fmt.Println(output)
             }
 
             out, err := exec.Command("python3", "publish_objects.py", myIP.String(), payload.Message).Output()
             if err != nil {
-                log.Info("Publish error: %s", err)
+                fmt.Println("Publish error: %s", err)
             } else {
                 log.Info("Object published to stream sucessfully")
                 output := string(out[:])
-                log.Info(output)
+                fmt.Println(output)
             }
 
             time.Sleep(time.Duration(r1.Intn(20)) * time.Second)
